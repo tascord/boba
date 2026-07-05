@@ -14,7 +14,9 @@ use {
             tabs::Tabs,
         },
         events::{EventTarget, SubscriptionPriority},
-        surface::{Cell, Position, Surface, clip, fit_width, join_horizontal, join_vertical, place_filled},
+        surface::{
+            Cell, Position, Surface, clip, fit_width, join_horizontal, join_vertical, place_filled,
+        },
         theme::Theme,
     },
     crossterm::event::{KeyCode, MouseEvent},
@@ -35,8 +37,14 @@ const HISTORY_GAP: usize = 3;
 const HISTORY_CONTENT_WIDTH: usize = ((WIDTH - (HISTORY_GAP * 2)) / 3) - 4;
 
 fn color_grid_surf(x_steps: usize, y_steps: usize) -> Surface {
-    let colors =
-        blend_2d(x_steps, y_steps, hex_color("#F25D94"), hex_color("#EDFF82"), hex_color("#643AFF"), hex_color("#14F9D5"));
+    let colors = blend_2d(
+        x_steps,
+        y_steps,
+        hex_color("#F25D94"),
+        hex_color("#EDFF82"),
+        hex_color("#643AFF"),
+        hex_color("#14F9D5"),
+    );
     let mut rows = Vec::new();
     for row in colors {
         let mut cells = Vec::new();
@@ -65,8 +73,12 @@ fn apply_gradient(text: &str, from: Color, to: Color) -> Surface {
     Surface { rows: vec![row] }
 }
 
-fn status_seg(text: &str, bg: Color) -> BobaStyle {
-    BobaStyle::new().fg(hex_color("#FFFDF5")).bg(bg).padding_y(0).padding_x(1)
+fn status_seg(_text: &str, bg: Color) -> BobaStyle {
+    BobaStyle::new()
+        .fg(hex_color("#FFFDF5"))
+        .bg(bg)
+        .padding_y(0)
+        .padding_x(1)
 }
 
 struct LayoutView {
@@ -108,9 +120,17 @@ impl LayoutView {
                         .margin_right(2)
                         .bold(),
                 ),
-            cancel_btn: Button::new("Maybe").id_as("dialog-cancel").variant(ButtonVariant::Secondary).default_style(
-                BobaStyle::new().fg(hex_color("#FFF7DB")).bg(hex_color("#888B7E")).padding_y(0).padding_x(1).margin_top(1),
-            ),
+            cancel_btn: Button::new("Maybe")
+                .id_as("dialog-cancel")
+                .variant(ButtonVariant::Secondary)
+                .default_style(
+                    BobaStyle::new()
+                        .fg(hex_color("#FFF7DB"))
+                        .bg(hex_color("#888B7E"))
+                        .padding_y(0)
+                        .padding_x(1)
+                        .margin_top(1),
+                ),
             active_tab,
             tabs_area: Mutex::new(Rect::new(0, 0, 0, 0)),
             ok_btn_area: Mutex::new(Rect::new(0, 0, 0, 0)),
@@ -130,26 +150,55 @@ impl LayoutView {
         let tabs_row = self.tabs.render_to_surface();
 
         // Title
-        let title_style =
-            BobaStyle::new().margin_left(1).margin_right(5).padding(0, 1, 0, 1).italic().fg(hex_color("#FFF7DB"));
-        let title_colors =
-            blend_2d(1, 5, hex_color("#F25D94"), hex_color("#643AFF"), hex_color("#EDFF82"), hex_color("#14F9D5"));
+        let title_style = BobaStyle::new()
+            .margin_left(1)
+            .margin_right(5)
+            .padding(0, 1, 0, 1)
+            .italic()
+            .fg(hex_color("#FFF7DB"));
+        let title_colors = blend_2d(
+            1,
+            5,
+            hex_color("#F25D94"),
+            hex_color("#643AFF"),
+            hex_color("#EDFF82"),
+            hex_color("#14F9D5"),
+        );
         let mut title_surfaces = Vec::new();
         for (i, row) in title_colors.iter().enumerate() {
             let color = row[0];
-            let s = title_style.margin_left((i * 2) as u16).bg(color).render("Boba Tea");
+            let s = title_style
+                .margin_left((i * 2) as u16)
+                .bg(color)
+                .render("Boba Tea");
             title_surfaces.push(s);
         }
         let title = join_vertical(Position::Left, &title_surfaces);
 
         let desc_style = BobaStyle::new().margin_top(1);
-        let info_style = BobaStyle::new().border(Border::normal().no_left().no_right().no_bottom()).border_fg(subtle);
+        let info_style = BobaStyle::new()
+            .border(Border::normal().no_left().no_right().no_bottom())
+            .border_fg(subtle);
         let divider = BobaStyle::new().padding(0, 1, 0, 1).fg(subtle).render("•");
-        let url = BobaStyle::new().fg(special).render("https://github.com/tascord/boba");
-        let info_content =
-            join_horizontal(Position::Top, &[BobaStyle::new().render("by flora (based on Charm)"), divider, url]);
+        let url = BobaStyle::new()
+            .fg(special)
+            .render("https://github.com/tascord/boba");
+        let info_content = join_horizontal(
+            Position::Top,
+            &[
+                BobaStyle::new().render("by flora (based on Charm)"),
+                divider,
+                url,
+            ],
+        );
         let info = info_style.render_surface(&info_content);
-        let desc = join_vertical(Position::Left, &[desc_style.render("Terminal layout + styling you won't hate."), info]);
+        let desc = join_vertical(
+            Position::Left,
+            &[
+                desc_style.render("Terminal layout + styling you won't hate."),
+                info,
+            ],
+        );
         let title_row = join_horizontal(Position::Top, &[title, desc]);
 
         // Dialog
@@ -168,7 +217,8 @@ impl LayoutView {
         let ok_surf = self.ok_btn.render_to_surface(&Theme::default());
         let cancel_surf = self.cancel_btn.render_to_surface(&Theme::default());
         let buttons = join_horizontal(Position::Top, &[ok_surf, cancel_surf]);
-        let dialog_inner = dialog_box.render_surface(&join_vertical(Position::Center, &[question, buttons]));
+        let dialog_inner =
+            dialog_box.render_surface(&join_vertical(Position::Center, &[question, buttons]));
         let dialog = place_filled(
             WIDTH,
             DIALOG_HEIGHT,
@@ -179,14 +229,20 @@ impl LayoutView {
             "l o r e m ",
         );
         let mut dialog = dialog;
-        fit_width(&mut dialog, WIDTH, &Cell::blank(Style::default().fg(subtle)));
+        fit_width(
+            &mut dialog,
+            WIDTH,
+            &Cell::blank(Style::default().fg(subtle)),
+        );
 
         // Color grid
         let colors = color_grid_surf(14, 8);
 
         // Lists
-        let list_header_style =
-            BobaStyle::new().border(Border::normal().no_top().no_left().no_right()).border_fg(subtle).margin_right(2);
+        let list_header_style = BobaStyle::new()
+            .border(Border::normal().no_top().no_left().no_right())
+            .border_fg(subtle)
+            .margin_right(2);
         let list_style = BobaStyle::new()
             .border(Border::normal().no_top().no_bottom().no_right())
             .border_fg(subtle)
@@ -202,22 +258,28 @@ impl LayoutView {
         };
         let list_item = |text: &str| -> Surface { BobaStyle::new().padding_left(2).render(text) };
 
-        let list1 = join_vertical(Position::Left, &[
-            list_header_style.render("Citrus Fruits to Try"),
-            list_done("Grapefruit"),
-            list_done("Yuzu"),
-            list_item("Citron"),
-            list_item("Kumquat"),
-            list_item("Pomelo"),
-        ]);
+        let list1 = join_vertical(
+            Position::Left,
+            &[
+                list_header_style.render("Citrus Fruits to Try"),
+                list_done("Grapefruit"),
+                list_done("Yuzu"),
+                list_item("Citron"),
+                list_item("Kumquat"),
+                list_item("Pomelo"),
+            ],
+        );
         let list1 = list_style.render_surface(&list1);
 
-        let list2 = join_vertical(Position::Left, &[
-            list_header_style.render("Actual Boba Vendors"),
-            list_item("Chatime"),
-            list_item("Gong Cha"),
-            list_done("Teaser"),
-        ]);
+        let list2 = join_vertical(
+            Position::Left,
+            &[
+                list_header_style.render("Actual Boba Vendors"),
+                list_item("Chatime"),
+                list_item("Gong Cha"),
+                list_done("Teaser"),
+            ],
+        );
         let list2 = list_style.render_surface(&list2);
 
         let lists = join_horizontal(Position::Top, &[list1, list2, colors]);
@@ -232,19 +294,38 @@ impl LayoutView {
             .height(19)
             .width(HISTORY_CONTENT_WIDTH as u16);
 
-        let history_a = history_style.clone().align(Alignment::Right, Position::Top).render(LOREM);
-        let history_b = history_style.clone().align(Alignment::Center, Position::Top).render(LOREM);
-        let history_c = history_style.align(Alignment::Left, Position::Top).margin_right(0).render(LOREM);
+        let history_a = history_style
+            .clone()
+            .align(Alignment::Right, Position::Top)
+            .render(LOREM);
+        let history_b = history_style
+            .clone()
+            .align(Alignment::Center, Position::Top)
+            .render(LOREM);
+        let history_c = history_style
+            .align(Alignment::Left, Position::Top)
+            .margin_right(0)
+            .render(LOREM);
         let history = join_horizontal(Position::Top, &[history_a, history_b, history_c]);
 
         // Status bar
         let light_dark_state = if has_dark_bg { "Dark" } else { "Light" };
         let bar_style = BobaStyle::new()
-            .fg(light_dark(has_dark_bg, hex_color("#343433"), hex_color("#C1C6B2")))
-            .bg(light_dark(has_dark_bg, hex_color("#D9DCCF"), hex_color("#353533")));
+            .fg(light_dark(
+                has_dark_bg,
+                hex_color("#343433"),
+                hex_color("#C1C6B2"),
+            ))
+            .bg(light_dark(
+                has_dark_bg,
+                hex_color("#D9DCCF"),
+                hex_color("#353533"),
+            ));
 
         let status_key = status_seg("STATUS", hex_color("#FF5F87")).render("STATUS");
-        let encoding = status_seg("UTF-8", hex_color("#A550DF")).align(Alignment::Right, Position::Center).render("UTF-8");
+        let encoding = status_seg("UTF-8", hex_color("#A550DF"))
+            .align(Alignment::Right, Position::Center)
+            .render("UTF-8");
         let fish = status_seg("🍥 Fish Cake", hex_color("#6124DF")).render("🍥 Fish Cake");
 
         // Calculate remaining width after segments + their padding (2 cells each)
@@ -263,16 +344,25 @@ impl LayoutView {
         let bar = join_horizontal(Position::Top, &[status_key, status_val, encoding, fish]);
         let mut status_bar = bar;
         let fill_cell = Cell::blank(
-            Style::new().fg(light_dark(has_dark_bg, hex_color("#343433"), hex_color("#C1C6B2"))).bg(light_dark(
-                has_dark_bg,
-                hex_color("#D9DCCF"),
-                hex_color("#353533"),
-            )),
+            Style::new()
+                .fg(light_dark(
+                    has_dark_bg,
+                    hex_color("#343433"),
+                    hex_color("#C1C6B2"),
+                ))
+                .bg(light_dark(
+                    has_dark_bg,
+                    hex_color("#D9DCCF"),
+                    hex_color("#353533"),
+                )),
         );
         fit_width(&mut status_bar, WIDTH, &fill_cell);
 
         // Assemble document
-        join_vertical(Position::Left, &[tabs_row, title_row, dialog, lists, history, status_bar])
+        join_vertical(
+            Position::Left,
+            &[tabs_row, title_row, dialog, lists, history, status_bar],
+        )
     }
 
     fn build_modal(&self) -> Surface {
@@ -344,7 +434,9 @@ impl View for LayoutView {
 
         let comp = Compositor::new(vec![
             CompositorLayer::new(doc).x(doc_x as u16).y(doc_y as u16),
-            CompositorLayer::new(modal).x(modal_x as u16).y(modal_y as u16),
+            CompositorLayer::new(modal)
+                .x(modal_x as u16)
+                .y(modal_y as u16),
         ]);
         comp.render_to_buf(area, buf);
     }
@@ -357,7 +449,10 @@ const LOREM: &str = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Qui
                      torquent per conubia nostra inceptos himenaeos.";
 
 fn main() {
-    let rt = tokio::runtime::Builder::new_multi_thread().enable_all().build().unwrap();
+    let rt = tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap();
     rt.block_on(async {
         App::new(LayoutView::new()).run().await.unwrap();
     });
