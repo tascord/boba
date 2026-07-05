@@ -58,7 +58,7 @@ impl Cell {
 /// # Example
 ///
 /// ```
-/// use boba::surface::{Cell, Surface};
+/// use bobatea::surface::{Cell, Surface};
 /// use ratatui::style::Style;
 ///
 /// let cell = Cell::blank(Style::default());
@@ -214,7 +214,7 @@ pub enum Position {
 /// # Example
 ///
 /// ```
-/// use boba::surface::{Surface, join_horizontal, Position};
+/// use bobatea::surface::{Surface, join_horizontal, Position};
 /// // "A" is 1 cell, "B\nC" spans 2 rows (row const "B", row 1 "C")
 /// let left  = Surface::from_text("A", Default::default());
 /// let right = Surface::from_text("B\nC", Default::default());
@@ -268,7 +268,7 @@ pub fn join_horizontal(align: Position, surfaces: &[Surface]) -> Surface {
 /// # Example
 ///
 /// ```
-/// use boba::surface::{Surface, join_vertical, Position};
+/// use bobatea::surface::{Surface, join_vertical, Position};
 /// let top    = Surface::from_text("ABC", Default::default());
 /// let bottom = Surface::from_text("X", Default::default());
 /// let combined = join_vertical(Position::Center, &[top, bottom]);
@@ -322,7 +322,7 @@ pub fn join_vertical(align: Position, surfaces: &[Surface]) -> Surface {
 /// # Example
 ///
 /// ```
-/// use boba::surface::{Surface, Cell, place, Position};
+/// use bobatea::surface::{Surface, Cell, place, Position};
 /// let inner = Surface::from_text("Hi", Default::default());
 /// let outer = place(5, 3, Position::Center, Position::Center, &inner, &Cell::blank(Default::default()));
 /// assert_eq!(outer.width(), 5);
@@ -407,7 +407,7 @@ pub fn set_width(surf: &mut Surface, width: usize, fill: &Cell) { fit_width(surf
 /// # Example
 ///
 /// ```
-/// use boba::surface::{Surface, clip, Cell};
+/// use bobatea::surface::{Surface, clip, Cell};
 /// let mut surf = Surface::from_text("Hello, World!", Default::default());
 /// clip(&mut surf, 5);
 /// // Surface is now at most 5 visual columns wide
@@ -465,7 +465,7 @@ pub fn width(surfaces: &[Surface]) -> usize { total_width(surfaces) }
 /// # Example
 ///
 /// ```
-/// use boba::surface::{Surface, Cell, place_filled, Position};
+/// use bobatea::surface::{Surface, Cell, place_filled, Position};
 /// let inner = Surface::from_text("Hi", Default::default());
 /// let outer = place_filled(5, 3, Position::Center, Position::Center, &inner, Default::default(), "░");
 /// // outer is 5×3, with "░" filling the gaps around "Hi"

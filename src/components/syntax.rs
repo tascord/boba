@@ -1,7 +1,7 @@
 //! Syntax-highlighted code block.
 //!
 //! ```rust
-//! use boba::components::syntax::SyntaxBlock;
+//! use bobatea::components::syntax::SyntaxBlock;
 //! let block = SyntaxBlock::new("rust", "fn main() {\n    println!(\"hello\");\n}");
 //! ```
 

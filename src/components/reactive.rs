@@ -1,7 +1,7 @@
 //! Reactive text elements that auto-update when [`Mutable`] content changes.
 //!
 //! ```rust
-//! use boba::components::reactive::{BobaParagraph, BobaSpan};
+//! use bobatea::components::reactive::{BobaParagraph, BobaSpan};
 //! use futures_signals::signal::Mutable;
 //!
 //! let label = Mutable::new("Hello".to_string());

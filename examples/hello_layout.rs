@@ -3,7 +3,7 @@
 //! Run with: `cargo run --example hello_layout`
 
 use {
-    boba::{
+    bobatea::{
         App, AppEvent, View,
         components::{
             border::Border,

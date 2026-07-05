@@ -1,7 +1,7 @@
 //! Mouse hitbox tracking and responsive auto-layout.
 //!
 //! ```rust
-//! use boba::components::layout::{MouseArea, ResponsiveLayout};
+//! use bobatea::components::layout::{MouseArea, ResponsiveLayout};
 //! let mut zones = MouseArea::new();
 //! zones.track("btn", ratatui::layout::Rect::new(0, 0, 10, 3));
 //! ```
@@ -24,7 +24,7 @@ pub struct MouseArea {
 /// call `dispatch` to forward events to the first hit handler.
 ///
 /// ```rust
-/// use boba::components::layout::MouseDispatcher;
+/// use bobatea::components::layout::MouseDispatcher;
 /// use crossterm::event::MouseEvent;
 ///
 /// let mut d = MouseDispatcher::new();
@@ -93,7 +93,7 @@ impl MouseArea {
 /// A responsive layout that recalculates constraints on resize.
 ///
 /// ```rust
-/// use boba::components::layout::ResponsiveLayout;
+/// use bobatea::components::layout::ResponsiveLayout;
 /// let mut layout = ResponsiveLayout::new();
 /// layout.push(ratatui::layout::Constraint::Length(3));
 /// ```

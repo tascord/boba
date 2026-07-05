@@ -1,7 +1,7 @@
 //! Multiline text area — like `<textarea>` but for the terminal.
 //!
 //! ```rust
-//! use boba::components::textarea::TextArea;
+//! use bobatea::components::textarea::TextArea;
 //! let ta = TextArea::new().placeholder("Write something...");
 //! ```
 

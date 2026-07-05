@@ -1,7 +1,7 @@
 //! Pagination controls.
 //!
 //! ```rust
-//! use boba::components::paginator::Paginator;
+//! use bobatea::components::paginator::Paginator;
 //! let pager = Paginator::new(100, 10); // 100 items, 10 per page
 //! ```
 

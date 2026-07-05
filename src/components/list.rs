@@ -23,7 +23,7 @@ pub enum ListEvent {
 /// A selectable list of items.
 ///
 /// ```rust
-/// use boba::components::list::List;
+/// use bobatea::components::list::List;
 /// let list = List::new(["Apple", "Banana", "Cherry"]);
 /// ```
 pub struct List {

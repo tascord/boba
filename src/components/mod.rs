@@ -48,8 +48,8 @@ use {
 /// # Example
 ///
 /// ```
-/// use boba::components::Component;
-/// use boba::theme::Theme;
+/// use bobatea::components::Component;
+/// use bobatea::theme::Theme;
 /// use ratatui::{Frame, prelude::Rect};
 ///
 /// struct MyWidget { value: i32 }

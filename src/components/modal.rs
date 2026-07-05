@@ -1,7 +1,7 @@
 //! Modal / Dialog component for overlays.
 //!
 //! ```rust
-//! use boba::components::modal::{Modal, DialogButtons};
+//! use bobatea::components::modal::{Modal, DialogButtons};
 //! let modal = Modal::new("Confirm", "Are you sure?")
 //!     .with_buttons(DialogButtons::YesNo);
 //! ```

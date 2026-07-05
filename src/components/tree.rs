@@ -1,7 +1,7 @@
 //! Tree view — collapsible hierarchical list.
 //!
 //! ```rust
-//! use boba::components::tree::{Tree, TreeNode};
+//! use bobatea::components::tree::{Tree, TreeNode};
 //! let tree = Tree::new("root", vec![
 //!     TreeNode::leaf("a.txt"),
 //!     TreeNode::branch("src", vec![TreeNode::leaf("main.rs")]),

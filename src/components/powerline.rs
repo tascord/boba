@@ -1,7 +1,7 @@
 //! Powerline-style status bar and command palette.
 //!
 //! ```rust
-//! use boba::components::powerline::{Powerline, Segment};
+//! use bobatea::components::powerline::{Powerline, Segment};
 //! use ratatui::style::Color;
 //! let bar = Powerline::new(vec![
 //!     Segment::text(" normal ").fg(Color::Blue),

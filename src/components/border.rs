@@ -1,7 +1,7 @@
 //! Custom borders for styled strings and surfaces.
 //!
 //! ```rust
-//! use boba::components::border::Border;
+//! use bobatea::components::border::Border;
 //! let b = Border::rounded().top('═').bottom('─');
 //! ```
 

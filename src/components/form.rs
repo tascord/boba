@@ -1,7 +1,7 @@
 //! Form container — groups inputs, buttons, and lists with automatic focus/tab management.
 //!
 //! ```rust
-//! use boba::components::{
+//! use bobatea::components::{
 //!     form::Form,
 //!     input::Input,
 //!     button::Button,

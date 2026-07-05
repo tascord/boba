@@ -1,7 +1,7 @@
 //! Raw canvas — direct access to a [`Buffer`] for custom drawing.
 //!
 //! ```rust
-//! use boba::components::canvas::Canvas;
+//! use bobatea::components::canvas::Canvas;
 //! let canvas = Canvas::new(|area, buf| {
 //!    for y in area.top()..area.bottom() {
 //!        for x in area.left()..area.right() {

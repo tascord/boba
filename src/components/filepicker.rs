@@ -1,7 +1,7 @@
 //! File picker / directory tree browser.
 //!
 //! ```rust
-//! use boba::components::filepicker::FilePicker;
+//! use bobatea::components::filepicker::FilePicker;
 //! let fp = FilePicker::new(".");
 //! ```
 

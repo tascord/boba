@@ -10,7 +10,7 @@ use {
 /// A progress bar component.
 ///
 /// ```rust
-/// use boba::components::progress::Progress;
+/// use bobatea::components::progress::Progress;
 /// let bar = Progress::new().label("Loading...");
 /// bar.set(0.5);
 /// ```

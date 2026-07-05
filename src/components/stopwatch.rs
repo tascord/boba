@@ -1,7 +1,7 @@
 //! Simple stopwatch / timer component.
 //!
 //! ```rust
-//! use boba::components::stopwatch::Stopwatch;
+//! use bobatea::components::stopwatch::Stopwatch;
 //! let mut sw = Stopwatch::new();
 //! sw.start();
 //! ```

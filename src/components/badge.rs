@@ -1,7 +1,7 @@
 //! Small badge / pill labels.
 //!
 //! ```rust
-//! use boba::components::badge::{Badge, BadgeStyle};
+//! use bobatea::components::badge::{Badge, BadgeStyle};
 //! let badge = Badge::new("v1.0.0").style(BadgeStyle::Success);
 //! ```
 

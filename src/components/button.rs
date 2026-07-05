@@ -1,7 +1,7 @@
 //! Styled button component with variants, callbacks, and event handling.
 //!
 //! ```rust
-//! use boba::components::button::{Button, ButtonVariant};
+//! use bobatea::components::button::{Button, ButtonVariant};
 //! let btn = Button::new("Submit").variant(ButtonVariant::Primary);
 //! ```
 
@@ -65,7 +65,7 @@ impl Default for ButtonVariant {
 /// A button component with variants, callbacks, and event handling.
 ///
 /// ```rust
-/// use boba::components::button::{Button, ButtonVariant};
+/// use bobatea::components::button::{Button, ButtonVariant};
 ///
 /// let btn = Button::new("Click Me")
 ///     .variant(ButtonVariant::Primary)

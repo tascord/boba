@@ -1,7 +1,7 @@
 //! Large ASCII-art text using figlet fonts.
 //!
 //! ```rust
-//! use boba::components::bigtext::BigText;
+//! use bobatea::components::bigtext::BigText;
 //! let bt = BigText::new("BOBA").color(ratatui::style::Color::Cyan);
 //! ```
 

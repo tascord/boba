@@ -1,7 +1,7 @@
 //! Scrollable viewport that crops a larger virtual area into a visible window.
 //!
 //! ```rust
-//! use boba::components::viewport::Viewport;
+//! use bobatea::components::viewport::Viewport;
 //! let vp = Viewport::new(80, 40); // virtual 80x40
 //! ```
 

@@ -39,7 +39,7 @@ impl SpinnerAnim {
 /// A loading spinner component.
 ///
 /// ```rust
-/// use boba::components::spinner::Spinner;
+/// use bobatea::components::spinner::Spinner;
 /// let spinner = Spinner::dots();
 /// ```
 pub struct Spinner {

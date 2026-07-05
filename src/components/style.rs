@@ -1,7 +1,7 @@
 //! Opinionated style wrappers with layout primitives.
 //!
 //! ```rust
-//! use boba::components::style::{BobaStyle, hsl};
+//! use bobatea::components::style::{BobaStyle, hsl};
 //! let s = BobaStyle::new().rounded().fg(hsl(120.0, 0.8, 0.6));
 //! ```
 
@@ -313,11 +313,7 @@ impl BobaStyle {
         }
 
         // Horizontal alignment
-        let inner_w = if self.padding_left > 0 || self.padding_right > 0 {
-            width.saturating_sub(self.padding_left as usize + self.padding_right as usize)
-        } else {
-            width
-        };
+        let inner_w = width;
         let shift_x = match self.align_h {
             Alignment::Right => inner_w.saturating_sub(content_w),
             Alignment::Center => (inner_w.saturating_sub(content_w)) / 2,

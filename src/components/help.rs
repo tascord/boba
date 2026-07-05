@@ -1,7 +1,7 @@
 //! Help / keybind hint bar — contextual shortcuts display.
 //!
 //! ```rust
-//! use boba::components::help::{HelpBar, Keybind};
+//! use bobatea::components::help::{HelpBar, Keybind};
 //! let bar = HelpBar::new(vec![
 //!     Keybind::new("q", "quit"),
 //!     Keybind::new("space", "click"),

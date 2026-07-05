@@ -1,7 +1,7 @@
 //! Centralized animation system with `BobaValue<T>` for reactive animation targets.
 //!
 //! ```rust,ignore
-//! use boba::animator::{Animator, BobaValue};
+//! use bobatea::animator::{Animator, BobaValue};
 //! use futures_signals::signal::Mutable;
 //!
 //! let mut animator = Animator::new();

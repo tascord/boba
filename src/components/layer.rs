@@ -1,7 +1,7 @@
 //! Layer compositor — stack widgets with optional screen-space effects.
 //!
 //! ```rust,ignore
-//! use boba::components::{
+//! use bobatea::components::{
 //!     layer::{Layer, LayerStack},
 //!     button::Button,
 //! };
@@ -153,8 +153,8 @@ impl CompositorLayer {
 /// a [`ratatui::prelude::Buffer`].
 ///
 /// ```rust,ignore
-/// use boba::components::layer::{Compositor, CompositorLayer};
-/// # use boba::surface::Surface;
+/// use bobatea::components::layer::{Compositor, CompositorLayer};
+/// # use bobatea::surface::Surface;
 /// let comp = Compositor::new(vec![
 ///     CompositorLayer::new(Surface::new(10, 10, &Default::default())),
 ///     CompositorLayer::new(Surface::new(5, 5, &Default::default())).x(10).y(5),

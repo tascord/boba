@@ -34,7 +34,7 @@ pub use surface::{
 /// # Example
 ///
 /// ```
-/// use boba::{App, View, theme::Theme};
+/// use bobatea::{App, View, theme::Theme};
 /// use ratatui::Frame;
 ///
 /// struct MyView;

@@ -24,7 +24,7 @@ pub enum InputEvent {
 /// A single-line text input component.
 ///
 /// ```rust
-/// use boba::components::input::Input;
+/// use bobatea::components::input::Input;
 /// let inp = Input::new("Username").placeholder("guest");
 /// ```
 pub struct Input {

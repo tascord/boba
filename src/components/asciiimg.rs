@@ -4,7 +4,7 @@
 //! or catimg-style dithered images in the terminal.
 //!
 //! ```rust
-//! use boba::components::asciiimg::AsciiImage;
+//! use bobatea::components::asciiimg::AsciiImage;
 //! use ratatui::style::Color;
 //!
 //! let img = AsciiImage::new(3, 3)

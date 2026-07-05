@@ -1,7 +1,7 @@
 //! Tab bar component with reactive binding and callbacks.
 //!
 //! ```rust
-//! use boba::components::tabs::Tabs;
+//! use bobatea::components::tabs::Tabs;
 //! use futures_signals::signal::Mutable;
 //!
 //! let active = Mutable::new(0);
@@ -46,7 +46,7 @@ pub enum TabsEvent {
 /// A tab bar component with reactive binding and callbacks.
 ///
 /// ```rust
-/// use boba::components::tabs::Tabs;
+/// use bobatea::components::tabs::Tabs;
 /// use futures_signals::signal::Mutable;
 ///
 /// let active = Mutable::new(0);
@@ -76,7 +76,7 @@ impl TabStates {
 /// A tab bar component.
 ///
 /// ```rust
-/// use boba::components::tabs::Tabs;
+/// use bobatea::components::tabs::Tabs;
 /// let mut tabs = Tabs::new(["Home", "Settings", "About"]);
 /// ```
 pub struct Tabs {
@@ -329,9 +329,14 @@ impl Tabs {
         let gap = 96usize.saturating_sub(current_width);
         if gap > 0 {
             let gap_line = (0..gap).map(|_| Cell::new(" ", Style::default())).collect::<Vec<_>>();
+            let bottom_line = if *self.active.lock_ref() == self.labels.len().saturating_sub(1) {
+                gap_line.clone()
+            } else {
+                (0..gap).map(|_| Cell::new("─".to_string(), Style::default().fg(ratatui::style::Color::White))).collect()
+            };
             surface.rows[0].extend_from_slice(&gap_line);
             surface.rows[1].extend_from_slice(&gap_line);
-            surface.rows[2].extend_from_slice(&gap_line);
+            surface.rows[2].extend_from_slice(&bottom_line);
         }
 
         surface

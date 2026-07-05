@@ -1,7 +1,7 @@
 //! Data table component with sortable columns and keyboard navigation.
 //!
 //! ```rust
-//! use boba::components::table::{Table, Column};
+//! use bobatea::components::table::{Table, Column};
 //! let cols = vec![
 //!     Column::new("Name").width(20),
 //!     Column::new("Size").width(10).right(),

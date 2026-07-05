@@ -1,7 +1,10 @@
 [package]
 name = "bobatea"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2024"
+description = "Terminal layout + styling you won't hate."
+license = "MIT"
+repository = "https://github.com/tascord/boba"
 
 [dependencies]
 anyhow = "1.0.102"
