@@ -30,7 +30,9 @@ use {
 
 // Global layout constants
 const WIDTH: usize = 96;
-const COLUMN_WIDTH: usize = 28;
+const DIALOG_HEIGHT: usize = 9;
+const HISTORY_GAP: usize = 3;
+const HISTORY_CONTENT_WIDTH: usize = ((WIDTH - (HISTORY_GAP * 2)) / 3) - 4;
 
 fn color_grid_surf(x_steps: usize, y_steps: usize) -> Surface {
     let colors =
@@ -155,7 +157,8 @@ impl LayoutView {
             .border(Border::rounded())
             .border_fg(hex_color("#874BFD"))
             .padding(1, 0, 1, 0)
-            .width(WIDTH as u16);
+            .width(WIDTH.saturating_sub(2) as u16)
+            .align(Alignment::Center, Position::Center);
 
         let question = BobaStyle::new().render_surface(&apply_gradient(
             "Are you sure you want to eat marmalade?",
@@ -168,7 +171,7 @@ impl LayoutView {
         let dialog_inner = dialog_box.render_surface(&join_vertical(Position::Center, &[question, buttons]));
         let dialog = place_filled(
             WIDTH,
-            9,
+            DIALOG_HEIGHT,
             Position::Center,
             Position::Center,
             &dialog_inner,
@@ -217,17 +220,17 @@ impl LayoutView {
         ]);
         let list2 = list_style.render_surface(&list2);
 
-        let lists = join_horizontal(Position::Top, &[list1, list2, BobaStyle::new().margin_left(1).render_surface(&colors)]);
+        let lists = join_horizontal(Position::Top, &[list1, list2, colors]);
 
         // History
         let history_style = BobaStyle::new()
             .align(Alignment::Left, Position::Top)
             .fg(hex_color("#FAFAFA"))
             .bg(highlight)
-            .margin(1, 3, 0, 0)
+            .margin(1, HISTORY_GAP as u16, 0, 0)
             .padding(1, 2, 1, 2)
             .height(19)
-            .width(COLUMN_WIDTH as u16);
+            .width(HISTORY_CONTENT_WIDTH as u16);
 
         let history_a = history_style.clone().align(Alignment::Right, Position::Top).render(LOREM);
         let history_b = history_style.clone().align(Alignment::Center, Position::Top).render(LOREM);
@@ -245,12 +248,13 @@ impl LayoutView {
         let fish = status_seg("🍥 Fish Cake", hex_color("#6124DF")).render("🍥 Fish Cake");
 
         // Calculate remaining width after segments + their padding (2 cells each)
-        let used = status_key.width() + 2 + encoding.width() + 2 + fish.width() + 2;
+        let used = status_key.width() + encoding.width() + fish.width();
         let remaining = WIDTH.saturating_sub(used);
+        let status_text_width = remaining.saturating_sub(2);
 
         let mut status_val = BobaStyle::new()
             .inherit(bar_style)
-            .width(remaining as u16)
+            .width(status_text_width as u16)
             .padding_x(1)
             .render(&format!("Ravishingly {}!", light_dark_state));
         clip(&mut status_val, remaining);
@@ -277,7 +281,6 @@ impl LayoutView {
             .fg(hex_color("#FFF7DB"))
             .bg(hex_color("#F25D94"))
             .padding(1, 6, 1, 6)
-            .border(Border::rounded())
             .width(40u16)
             .align(Alignment::Center, Position::Center)
             .render("Now with Compositing!")
@@ -324,12 +327,9 @@ impl View for LayoutView {
         let doc = self.build_document();
         let modal = self.build_modal();
 
-        // Debug border around document
-        let doc_with_border = BobaStyle::new().border(Border::thick()).border_fg(hex_color("#FF0000")).render_surface(&doc);
-
         // Center document in available area
-        let doc_w = doc_with_border.width().min(area.width as usize);
-        let doc_h = doc_with_border.height().min(area.height as usize);
+        let doc_w = doc.width().min(area.width as usize);
+        let doc_h = doc.height().min(area.height as usize);
         let doc_x = (area.width as usize).saturating_sub(doc_w) / 2;
         let doc_y = (area.height as usize).saturating_sub(doc_h) / 2;
 
@@ -338,12 +338,12 @@ impl View for LayoutView {
             *tabs_area = Rect::new(doc_x as u16, doc_y as u16, doc_w as u16, 3);
         }
 
-        // Modal position (relative to document center)
-        let modal_x = doc_x + 58;
-        let modal_y = doc_y + 44;
+        // Keep the composited badge inside the document bounds.
+        let modal_x = doc_x + doc_w.saturating_sub(modal.width() + 2);
+        let modal_y = doc_y + doc_h.saturating_sub(modal.height() + 2);
 
         let comp = Compositor::new(vec![
-            CompositorLayer::new(doc_with_border).x(doc_x as u16).y(doc_y as u16),
+            CompositorLayer::new(doc).x(doc_x as u16).y(doc_y as u16),
             CompositorLayer::new(modal).x(modal_x as u16).y(modal_y as u16),
         ]);
         comp.render_to_buf(area, buf);
