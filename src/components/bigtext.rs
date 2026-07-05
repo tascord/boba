@@ -26,7 +26,7 @@ pub struct BigText {
 impl BigText {
     /// Load the Pagga font from embedded assets.
     pub fn new(text: impl Display) -> Self {
-        let font_content = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/../../_assets/Pagga.tlf"));
+        let font_content = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/_assets/Pagga.tlf"));
         let font = FIGfont::from_content(font_content)
             .unwrap_or_else(|_| FIGfont::standard().unwrap_or_else(|_| FIGfont::from_content("").unwrap()));
         Self { text: text.to_string(), font, color: Color::White }
