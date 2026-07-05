@@ -34,7 +34,8 @@ use {
 const WIDTH: usize = 96;
 const DIALOG_HEIGHT: usize = 9;
 const HISTORY_GAP: usize = 3;
-const HISTORY_CONTENT_WIDTH: usize = ((WIDTH - (HISTORY_GAP * 2)) / 3) - 4;
+const HISTORY_HORIZONTAL_PADDING: usize = 4;
+const HISTORY_CONTENT_WIDTH: usize = ((WIDTH - (HISTORY_GAP * 2)) / 3) - HISTORY_HORIZONTAL_PADDING;
 
 fn color_grid_surf(x_steps: usize, y_steps: usize) -> Surface {
     let colors = blend_2d(
@@ -73,7 +74,7 @@ fn apply_gradient(text: &str, from: Color, to: Color) -> Surface {
     Surface { rows: vec![row] }
 }
 
-fn status_seg(_text: &str, bg: Color) -> BobaStyle {
+fn status_seg(bg: Color) -> BobaStyle {
     BobaStyle::new()
         .fg(hex_color("#FFFDF5"))
         .bg(bg)
@@ -322,13 +323,13 @@ impl LayoutView {
                 hex_color("#353533"),
             ));
 
-        let status_key = status_seg("STATUS", hex_color("#FF5F87")).render("STATUS");
-        let encoding = status_seg("UTF-8", hex_color("#A550DF"))
+        let status_key = status_seg(hex_color("#FF5F87")).render("STATUS");
+        let encoding = status_seg(hex_color("#A550DF"))
             .align(Alignment::Right, Position::Center)
             .render("UTF-8");
-        let fish = status_seg("🍥 Fish Cake", hex_color("#6124DF")).render("🍥 Fish Cake");
+        let fish = status_seg(hex_color("#6124DF")).render("🍥 Fish Cake");
 
-        // Calculate remaining width after segments + their padding (2 cells each)
+        // Segment widths already include their horizontal padding.
         let used = status_key.width() + encoding.width() + fish.width();
         let remaining = WIDTH.saturating_sub(used);
         let status_text_width = remaining.saturating_sub(2);
