@@ -207,8 +207,7 @@ impl LayoutView {
         let dialog_box = BobaStyle::new()
             .border(Border::rounded())
             .border_fg(hex_color("#874BFD"))
-            .padding(1, 0, 1, 0)
-            .width(WIDTH.saturating_sub(2) as u16)
+            .padding(1, 4, 1, 4)
             .align(Alignment::Center, Position::Center);
 
         let question = BobaStyle::new().render_surface(&apply_gradient(
@@ -219,8 +218,8 @@ impl LayoutView {
         let ok_surf = self.ok_btn.render_to_surface(&Theme::default());
         let cancel_surf = self.cancel_btn.render_to_surface(&Theme::default());
         let buttons = join_horizontal(Position::Top, &[ok_surf, cancel_surf]);
-        let dialog_inner =
-            dialog_box.render_surface(&join_vertical(Position::Center, &[question, buttons]));
+        let dialog_content = join_vertical(Position::Center, &[question, buttons]);
+        let dialog_inner = dialog_box.render_surface(&dialog_content);
         let dialog = place_filled(
             WIDTH,
             DIALOG_HEIGHT,
@@ -328,7 +327,7 @@ impl LayoutView {
         let encoding = status_seg(hex_color("#A550DF"))
             .align(Alignment::Right, Position::Center)
             .render("UTF-8");
-        let fish = status_seg(hex_color("#6124DF")).render("🍥 Fish Cake");
+        let fish = status_seg(hex_color("#6124DF")).render("Fish Cake");
 
         // Segment widths already include their horizontal padding.
         let used = status_key.width() + encoding.width() + fish.width();
