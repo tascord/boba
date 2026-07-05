@@ -34,8 +34,8 @@ use {
 const WIDTH: usize = 96;
 const DIALOG_HEIGHT: usize = 9;
 const HISTORY_GAP: usize = 3;
-const HISTORY_HORIZONTAL_PADDING: usize = 4;
-const HISTORY_CONTENT_WIDTH: usize = ((WIDTH - (HISTORY_GAP * 2)) / 3) - HISTORY_HORIZONTAL_PADDING;
+const HISTORY_TOTAL_HORIZONTAL_PADDING: usize = 4;
+const HISTORY_CONTENT_WIDTH: usize = ((WIDTH - (HISTORY_GAP * 2)) / 3) - HISTORY_TOTAL_HORIZONTAL_PADDING;
 
 fn color_grid_surf(x_steps: usize, y_steps: usize) -> Surface {
     let colors = blend_2d(
