@@ -1,4 +1,4 @@
-<img width="200" height="200" align="left" style="float: left; margin: 0 10px 0 0;" alt="Icon" src="https://fav.farm/%F0%9F%8E%A8"> 
+<img width="200" height="200" align="left" style="float: left; margin: 0 10px 0 0;" alt="Icon" src="https://raw.githubusercontent.com/tascord/boba/refs/heads/main/icon.png"> 
 
 # Boba(tea)
 ### Terminal layout + styling you won't hate.
